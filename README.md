@@ -1,1 +1,3 @@
-# Data-Structures-and-Algorithms Coursework at Habib University during Spring 2022
+# Data-Structures-and-Algorithms 
+Habib University
+Spring 2022
