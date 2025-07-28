@@ -1,0 +1,224 @@
+\documentclass[addpoints]{exam}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{mdframed}
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour}, commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+% Header and footer.
+\pagestyle{headandfoot}
+\runningheadrule
+\runningfootrule
+\runningheader{CS 102 Data Structures and Algorithms }{HW 1: List Interface}{Spring 2022}
+\runningfooter{}{Page \thepage\ of \numpages}{}
+\firstpageheader{}{}{}
+
+\qformat{{\large\bf \thequestion. \thequestiontitle}\hfill}
+\boxedpoints
+
+\noprintanswers
+
+\graphicspath{{images/}}
+
+\title{HW 1: The List Interface}
+\author{CS 102 Data Structures and Algorithms\\Habib University\\Spring 2022}
+\date{Due: 2359h on Thr, 10 Feb}
+\date{All questions carry equal weight.}
+
+\begin{document}
+	\maketitle
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=.5\textwidth]{intimidator_coaster}
+		\caption{Intimidator Coaster $|$ Yohsin Theme Park}
+		\label{fig:intimidator_coaster}
+	\end{figure}
+	
+	
+	\section{Coasterheads}
+	
+	The Intimidator Coaster is a popular attraction at Yohsin Theme Park, but there have been too many complaints about long lines. The newly hired ride manager is responsible for reducing the wait time. She decides to dust off her knowledge of the Queue data structure and come up with interesting new ways to handle the lines. 
+	
+	Currently, the Intimidator has two lines -  a Regular line and a Priority line - with different tickets. The Priority ticket costs twice as much as the Regular ticket, and gives priority access to the coaster. Everyone in the Priority line gets seated before anyone in the Regular line. But this causes dissatisfaction in the Regular liners, especially since the Priority line has grown longer recently. 
+	
+	To inject a sense of fairplay, the manager plans on a new kind of ticket, called the Lucky ticket. It will be priced in-between the Regular and Priority tickets, and get you assigned uniformly at random to either the Priority or Regular lines. To execute her plan, she first writes pseudocode using only the basic constructs of programming, and the following Queue interface:
+	
+	
+	\begin{lstlisting}[language=Python, caption=Queue Interface]
+	Queue(rank) #Creates the queue using the rank function
+	enqueue(x)  #inserts x into the queue
+	dequeue()   #removes and returns first element of queue
+	size()      #returns the length of the queue\end{lstlisting}
+	
+	The \texttt{rank} function is not part of the interface, but has access to the interface functions at the back end.
+	
+	\begin{lstlisting}[language=Python]
+	rank(x)     #returns the index of x in the queue\end{lstlisting}
+	
+	
+	\textbf{Important}: In the questions that follow, you are required to present pseudo-code that only uses functions from Listing 1, and any additional listings made available in the question. The solution to this question should be typed in LaTeX using the \texttt{solution\_skeleton.tex} file.
+	
+	\subsection{} A \texttt{RandomQueue} is a type of queue where elements are ordered randomly. Implement the \texttt{rank1(x)} function that orders elements uniformly at random, to accompany an imaginary implementation of \texttt{RandomQueue}. Apart from previous functions, you have access to the following function:
+	\begin{lstlisting}[language=Python]
+	random(x,y) #returns a random integer between x and y, inclusive\end{lstlisting}
+	
+	\begin{mdframed}
+		def rank1(x):
+    
+    y = size()
+    
+    r = random(x,y)
+    
+    return r
+	\end{mdframed}
+	
+	\subsection{} A \texttt{PriorityQueue} is a type of queue where elements are ordered according to priority. Suppose there are two priorities that can be assigned to an element mutually exclusively. Implement the \texttt{rank2(x)} function that orders elements according to their priority, to accompany an imaginary implementation of \texttt{PriorityQueue}. Apart from previous functions, you have access to the following function:
+	\begin{lstlisting}[language=Python]
+	priority(x) #returns the priority of x\end{lstlisting}
+	
+	\begin{mdframed}
+		def rank2(x):
+    
+    if priority(x) == True:
+    
+    \hspace*{20pt}for i in range(size()):
+    
+    \hspace*{40pt}if priority(q[i]) == False:
+    
+    \hspace*{60pt}break
+    
+    \hspace*{40pt}return i
+    
+    else:
+    
+    
+    \hspace*{20pt}return (size())
+	\end{mdframed}
+	
+	\subsection{} A \texttt{RegularQueue} is a type of queue where elements are ordered according to the time of insertion. Implement the \texttt{rank3(x)} function to accompany an imaginary implementation of \texttt{RegularQueue}.
+	
+	\begin{mdframed}
+		def rank3(x):
+	
+    return (size())
+	\end{mdframed}
+	
+	\subsection{}The manager invents a new type of queue and calls it the \texttt{IntimidatorQueue}. Here the elements are ordered according to the new ticketing scheme that includes Regular, Priority and Lucky tickets. Implement the \texttt{rank4(x)} function to accompany an imaginary implementation of \texttt{IntimidatorQueue}. Apart from previous functions, you have access to the following function:
+	\begin{lstlisting}[language=Python]
+	isLucky(x) #returns True if x has a Lucky ticket, and False otherwise\end{lstlisting}
+	
+	\begin{mdframed}
+		def rank4(x):
+    
+    if isLucky(x) == False:
+    
+    \hspace*{20pt}return (rank2(x))
+        
+    elif isLucky(x) == True:
+    
+    \hspace*{20pt}if priority(x) == True:
+        
+        \hspace*{40pt}return (q.index(x))
+            
+    \hspace*{20pt}else:
+        
+        \hspace*{40pt}return (rank3(x))
+	\end{mdframed}
+	
+	\subsection{} The Priority line is still too long. Before changing the ticket prices, the manager decides a low-key solution: $m$ Regular liners will be seated after every $n$ Priority liners are seated. Initialize an \texttt{IntimidatorQueue} by calling the \texttt{Queue(rank)} function with the appropriate rank function from before. 
+	
+	\begin{mdframed}
+		Queue(rank4(x))
+	\end{mdframed}
+	
+	\subsection{} Implement the \texttt{seat(x)} function that dequeues $x$ people from the \texttt{IntimidatorQueue}. Once the \texttt{seat(x)} function is done, the Regular and Priority lines should both be shorter in accordance with the $m$-Regular $n$-Priority dequeueing scheme.
+	
+	\begin{mdframed}
+		def seat(x):
+		
+    for i in range(x):
+    
+    \hspace*{20pt}deQueue(IntimidatorQueue)
+	\end{mdframed}
+	
+	\subsection{} The lines are already looking better after some experimentation, but the manager wants to tweak the Lucky ticket further. Instead of assigning people to the two lines uniformly at random, she makes the assignment based on the ratio $m:n$. The Lucky person gets assigned the Priority line $\frac{m}{n}$ of the times and the Regular line $1 - \frac{m}{n}$ of the times ($n$ is always greater than $m$). Implement the \texttt{rank5(x)} function according to this new scheme. Assume that all prior functions are available.
+	
+	\begin{mdframed}
+		def rank5(x):
+    
+    f = random(1,size(q))
+    
+    f = f/n
+    
+    if f $<$ (1 - (m/n)):
+    
+    \hspace*{20pt}return (size(q))
+	\end{mdframed}
+	
+	\section{Paranthetical}
+	Ponyo's friends made him a birthday present — a bracket sequence! Ponyo was quite disappointed with his gift, because he dreamt of correct bracket sequences, yet his friends were uncultured in the art of correct bracket sequences.
+	
+	To make everything right, Ponyo is going to move at most one paranthesis from its original place in the sequence to any other position. Reversing the paranthesis (e.g. turning "(" into ")" or vice versa) isn't allowed.
+	
+	A bracket sequence, $s$, is called correct if:
+	
+	\begin{enumerate}
+		\item $s$ is empty.
+		\item $s$ is equal to $(t)$, where $t$ is a correct bracket sequence.
+		\item $s$ is equal to $t_1t_2$, where $t_1$, $t_2$ are correct bracket sequences.
+	\end{enumerate}
+	
+	For example, "(()())", "()" are correct, while ")(" and "())" are not. Help Ponyo fix his birthday present and understand whether he can move one paranthesis so that the sequence becomes correct. You are required to submit code for this question using the HackerRank website \href{https://hr.gs/hw1_cs102}{here}
+	
+	\section{Balanced Braces}
+	One of the most important applications of Stacks is to check if the parentheses are balanced in a given expression. You are designing a compiler for a programming language and need to check that braces in any given file are balanced. Braces in a string are considered to be balanced if the following criteria are met:
+	\begin{enumerate}
+		\item Braces come in pairs of the form (), \{\} and [].  The left brace opens the pair, and the right one closes it. All brace pairs must be closed.
+		
+		\item In any set of nested braces, the braces between any pair must be closed. For example, [\{\}] is a valid grouping of braces but [\}]\{\} is not.
+		
+	\end{enumerate}
+	
+	You are required to submit code for this question using the HackerRank website \href{https://hr.gs/hw1_cs102}{here}
+	
+	\section*{Credits}
+	
+	This homework and related files are due in part to Aisha Batool.
+	
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
